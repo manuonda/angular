@@ -10,7 +10,7 @@ enum Gender{
 
 export interface CharacterInfo{
     info: Info,
-    result: Character[]
+    results: Character[]
 }
 export interface LinkedElement{
     name: string;

@@ -1,1 +1,7 @@
-<p>main-container works!</p>
+<div>
+    @if(characters$ | async; as characters){
+        @for(character of characters; track character.id){
+            {{character.name}}
+        }
+    }
+</div>
