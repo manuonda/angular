@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CharacterService } from '../../services/character.service';
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 import { Character } from '../../models/character.model';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { CharacterCardComponent } from './components';
@@ -16,4 +16,10 @@ import { CharacterCardComponent } from './components';
 export class MainContainerComponent {
   private characterService = inject(CharacterService);
    characters$: Observable<Character[]>  = this.characterService.getCharacters();
+   characterInfo: Record<string, Character> = {};
+
+   async makeApiCall(url: string){
+     let character =  await firstValueFrom(this.characterService.getCharacterInfo(url));
+     this.characterInfo[character.id] = character;
+   }
 }   

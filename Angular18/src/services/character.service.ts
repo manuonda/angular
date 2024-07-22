@@ -18,7 +18,7 @@ export class CharacterService {
     return this.http.get<CharacterInfo>(this.charactersUrl).pipe(map(result =>  CharacterAdapter(result)));
    }
 
-   getCharacter(url: string):Observable<Character>{
+   getCharacterInfo(url: string):Observable<Character>{
     return this.http.get<Character>(url);
    }
 }
