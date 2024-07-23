@@ -1,0 +1,9 @@
+{
+  "name": "gentlemman-subscribers-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "apps/gentlemman-subscribers-e2e/src",
+  "implicitDependencies": ["gentlemman-subscribers"],
+  "// targets": "to see all targets run: nx show project gentlemman-subscribers-e2e --web",
+  "targets": {}
+}
