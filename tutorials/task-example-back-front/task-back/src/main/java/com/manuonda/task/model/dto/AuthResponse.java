@@ -1,4 +1,4 @@
-package com.manuonda.task.entity.dto;
+package com.manuonda.task.model.dto;
 
 public record AuthResponse(String token) {
 

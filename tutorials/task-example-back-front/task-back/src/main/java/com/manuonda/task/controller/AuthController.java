@@ -5,7 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.manuonda.task.entity.dto.RegisterRequest;
+import com.manuonda.task.model.dto.RegisterRequest;
 import com.manuonda.task.service.AuthService;
 
 import io.swagger.v3.oas.annotations.Operation;
