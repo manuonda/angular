@@ -30,11 +30,12 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Entity
-@Table(name="tbl_users", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+//@Table(name="tbl_users", uniqueConstraints = {@UniqueConstraint(columnNames = {"username"})})
+@Table(name="tbl_users")
 public class User implements UserDetails {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     private String email;
