@@ -1,11 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { hasEmailError, isRequired } from '../../utils/validador';
+import { AuthService, User } from '../../data-access/auth.service';
+
 
 
 interface FormSignUp {
-  email: FormControl<string | null>,
-  password: FormControl<string | null>
+  username: FormControl<string | null>,
+  password: FormControl<string | null>,
+  firstname?: FormControl<string | null>,
+  lastname?: FormControl<string | null>
 }
 
 
@@ -19,23 +23,43 @@ interface FormSignUp {
 export default class SignUpComponent {
 
   private _formBuilder = inject(FormBuilder)
+  private _authService = inject(AuthService);
+
   form = this._formBuilder.group<FormSignUp>({
-    email: this._formBuilder.control('', [
-      Validators.required,
-      Validators.email]),
-    password: this._formBuilder.control('', Validators.required)
+    username: this._formBuilder.control('', [Validators.required]),
+    password: this._formBuilder.control('', Validators.required),
+    firstname: this._formBuilder.control(''),
+    lastname: this._formBuilder.control('') 
   });
 
 
-  isRequired(field: 'email' | 'password') { return isRequired(field, this.form); }
+  isRequired(field: 'username' | 'password') { return isRequired(field, this.form); }
 
   isEmailRequired() { return hasEmailError(this.form); }
 
-  submit() {
+  async submit() {
+    console.log(this.form.invalid);
     if (this.form.invalid) return;
 
-    const { email, password } = this.form.value;
-    if (!email || !password) return;
+    console.log(this.form.value);
+    const { username, password } = this.form.value;
+    if (!username || !password) return;
 
+    console.log("this passed");
+   
+    const userData: User = this.form.value as User;
+    console.log("userdata : ", userData);
+    // try {
+    //   const resp = await this._authService.signUp(userData);   
+    //   const json = await resp;
+    //   console.log("resp : ", json);
+    // } catch (error) {
+    //   console.error(`Error ${error}`);
+    // }   
+    this._authService.signUp(userData)
+    .subscribe((result) => {
+       console.log("resultaod : ", result);
+    }) 
+   
   }
 }
