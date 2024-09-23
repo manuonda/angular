@@ -32,6 +32,7 @@ public class SecurityConfig {
            .requestMatchers("/swagger-ui/**").permitAll()
            .anyRequest().authenticated()
            )
+           .cors( c -> c.configurationSource(null))
            .sessionManagement(sessionManager -> 
            sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
            .authenticationProvider(authenticationProvider)
