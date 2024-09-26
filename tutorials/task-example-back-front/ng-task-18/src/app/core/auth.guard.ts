@@ -1,15 +1,21 @@
 import { inject } from "@angular/core";
 import { CanActivateChildFn, CanActivateFn, Router } from "@angular/router";
 import { LocalStorageService } from "../shared/local-storage.service";
+import AuthStateService from "../shared/auth-state.service";
 
 
 export const privateGuard = ():CanActivateFn => {
     return () => {
-        const router = inject(Router);
-        const localStorageService = inject(LocalStorageService);
-        const token = localStorageService.get('access_token')
-        
-        return true
+      
+       const authService = inject(AuthStateService);
+       const router = inject(Router)
+
+       const session = authService.getSession();
+       if( session) {
+        return  true;
+       }
+       router.navigateByUrl("/auth/sign-in")
+       return false;
     }
 }
 
