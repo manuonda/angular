@@ -15,12 +15,16 @@ import com.manuonda.task.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
+
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RequestMapping("/api/v1/auth")
 @RestController
+@CrossOrigin(origins = "*" )
 @Tag(name = "Authentication Controller",  description = "Authentication Controller")
 public class AuthController {
 
@@ -33,7 +37,7 @@ public class AuthController {
     @Operation(summary = "Register User")
     @ApiResponse(responseCode = "200", description = "Response Status 200")
     @PostMapping("/register")
-    public ResponseEntity<AuthResponse> registerUser(@RequestBody RegisterRequest dto ) {
+    public ResponseEntity<AuthResponse> registerUser(@Valid @RequestBody RegisterRequest dto ) {
         return  ResponseEntity.status(HttpStatus.OK).body(this.authService.registerUser(dto));
     }
 

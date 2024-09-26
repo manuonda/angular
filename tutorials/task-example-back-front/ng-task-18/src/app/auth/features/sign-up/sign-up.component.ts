@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { hasEmailError, isRequired } from '../../utils/validador';
 import { AuthService, User } from '../../data-access/auth.service';
+import { toast } from 'ngx-sonner';
 
 
 
@@ -9,7 +10,8 @@ interface FormSignUp {
   username: FormControl<string | null>,
   password: FormControl<string | null>,
   firstname?: FormControl<string | null>,
-  lastname?: FormControl<string | null>
+  lastname?: FormControl<string | null>,
+  email: FormControl<string | null>
 }
 
 
@@ -29,11 +31,15 @@ export default class SignUpComponent {
     username: this._formBuilder.control('', [Validators.required]),
     password: this._formBuilder.control('', Validators.required),
     firstname: this._formBuilder.control(''),
-    lastname: this._formBuilder.control('') 
+    lastname: this._formBuilder.control(''),
+    email: this._formBuilder.control('', [
+     Validators.required,
+     Validators.email
+    ]) 
   });
 
 
-  isRequired(field: 'username' | 'password') { return isRequired(field, this.form); }
+  isRequired(field: 'username' | 'password' |'email' ) { return isRequired(field, this.form); }
 
   isEmailRequired() { return hasEmailError(this.form); }
 
@@ -49,17 +55,15 @@ export default class SignUpComponent {
    
     const userData: User = this.form.value as User;
     console.log("userdata : ", userData);
-    // try {
-    //   const resp = await this._authService.signUp(userData);   
-    //   const json = await resp;
-    //   console.log("resp : ", json);
-    // } catch (error) {
-    //   console.error(`Error ${error}`);
-    // }   
-    this._authService.signUp(userData)
-    .subscribe((result) => {
-       console.log("resultaod : ", result);
-    }) 
-   
+    try {
+      const resp = await this._authService.signUp(userData);   
+      const json = await resp;
+      console.log("resp : ", json);
+      toast.success("Usuario registrado correctamente"); 
+    } catch (error) {
+      console.error(`Error ${error}`);
+      toast.error("Error : " + error);
+    }   
+    
   }
 }

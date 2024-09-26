@@ -10,6 +10,7 @@ public record RegisterRequest(
    String password,
    String firstname,
    String lastname,
+   @NotBlank(message = "Required email")
    String email
    ) {
 
