@@ -15,7 +15,11 @@
                       </h1>
                       <app-google-button  />
                     </div>
-
+                @if(_existError == true ){
+                  <div class="p-6 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800">
+                    <span class="text-red-400">{{_responseError?.title}}</span>
+                  </div>
+                } 
                 <form  [formGroup]="form" (ngSubmit)="submit()"
                   class="space-y-4 md:space-y-6" action="#">
                     <div>

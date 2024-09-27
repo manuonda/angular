@@ -1,4 +1,4 @@
-package com.manuonda.task.controller;
+package com.manuonda.task.web.controller;
 
 import org.springframework.context.annotation.Description;
 import org.springframework.http.HttpStatus;

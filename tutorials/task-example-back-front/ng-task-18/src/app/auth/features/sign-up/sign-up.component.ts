@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angu
 import { hasEmailError, isRequired } from '../../utils/validador';
 import { AuthService, User } from '../../data-access/auth.service';
 import { toast } from 'ngx-sonner';
+import { Router } from '@angular/router';
 
 
 
@@ -26,6 +27,7 @@ export default class SignUpComponent {
 
   private _formBuilder = inject(FormBuilder)
   private _authService = inject(AuthService);
+  private _router = inject(Router);
 
   form = this._formBuilder.group<FormSignUp>({
     username: this._formBuilder.control('', [Validators.required]),
@@ -55,15 +57,23 @@ export default class SignUpComponent {
    
     const userData: User = this.form.value as User;
     console.log("userdata : ", userData);
-    try {
-      const resp = await this._authService.signUp(userData);   
-      const json = await resp;
-      console.log("resp : ", json);
-      toast.success("Usuario registrado correctamente"); 
-    } catch (error) {
-      console.error(`Error ${error}`);
-      toast.error("Error : " + error);
-    }   
+    this._authService.signUp(userData).subscribe({
+      next:(resp) => {
+         this._router.navigateByUrl('dashboard');
+      },
+      error(err) {
+        console.error(`Error ${err}`);
+      },
+    });
+    // try {
+    //   const resp = await this._authService.signUp(userData);   
+    //   const json = await resp;
+    //   console.log("resp : ", json);
+    //   toast.success("Usuario registrado correctamente"); 
+    // } catch (error) {
+    //   console.error(`Error ${error}`);
+    //   toast.error("Error : " + error);
+    // }   
     
   }
 }

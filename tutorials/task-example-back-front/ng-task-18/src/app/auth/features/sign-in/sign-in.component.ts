@@ -12,6 +12,11 @@ interface FormSignIn {
   password: FormControl<string | null>
 }
 
+interface ResponseError{
+  title:string,
+  status: string,
+  detail: string
+}
 @Component({
   selector: 'app-sign-in',
   standalone: true,
@@ -23,6 +28,9 @@ export default class SignInComponent {
   private _formBuilder = inject(FormBuilder)
   private _authService = inject(AuthService);
   private _router = inject(Router);
+  public _existError:boolean = false; 
+  public _responseError:ResponseError | null = null;
+
 
   form = this._formBuilder.group<FormSignIn>({
     username: this._formBuilder.control('', [Validators.required]),
@@ -46,16 +54,27 @@ export default class SignInComponent {
    
     const userData: User = this.form.value as User;
     console.log("userdata : ", userData);
-    try {
-      const resp = await this._authService.signIn(userData);   
-      const json = await resp;
-      this._router.navigate(['/tasks']);
-      console.log("resp : ", json);
+    this._authService.signIn(userData).subscribe({
+      next:(resp) => {
+         this._router.navigateByUrl('dashboard');
+      },
+      error:(err: any) => {
+        this._existError = true;
+        this._responseError = err?.error;
+        toast.error('Se produjo un error de login');
+        console.error(`Error : `,JSON.stringify(err));
+      },
+    });
+    // try {
+    //   const resp = await this._authService.signIn(userData);   
+    //   const json = await resp;
+    //   this._router.navigate(['/tasks']);
+    //   console.log("resp : ", json);
   
-    } catch (error) {
-      console.error(`Error ${error}`);
-      toast.error("Error : " + error);
-    }   
+    // } catch (error) {
+    //   console.error(`Error ${error}`);
+    //   toast.error("Error : " + error);
+    // }   
     
   }
 }

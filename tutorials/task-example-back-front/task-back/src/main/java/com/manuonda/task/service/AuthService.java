@@ -34,17 +34,15 @@ public class AuthService {
 
     public AuthResponse login(LoginRequest request) {
         String token = null;
-        try {
-
-            authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
+      
             UserDetails userDetails = this.userRepository.findByUsername(request.username())
                     .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+            authenticationManager
+                    .authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
+            
 
             token = jwtService.getToken(userDetails);
-        } catch (Exception e) {
-            System.out.println("Exceptin ex: " + e.getMessage());
-        }
+     
 
         return new AuthResponse(token);
     }

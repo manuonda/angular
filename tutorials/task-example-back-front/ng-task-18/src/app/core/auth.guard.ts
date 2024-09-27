@@ -23,6 +23,17 @@ export const privateGuard = ():CanActivateFn => {
 
 export const publicGuard = ():CanActivateFn => {
     return () => {
-        return true
+        console.log("public guard")
+        const authService = inject(AuthStateService);
+        const router = inject(Router)
+
+        const session = authService.getSession();
+        console.log("session in public guard : ", session)
+        if (session) {
+            router.navigateByUrl("/dashboard")
+            return false
+        }
+
+        return true;
     }
 }

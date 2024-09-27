@@ -23,6 +23,7 @@ export default class AuthStateService{
             currentSession = maybeSession
         } else {
 
+            this.signOut();
         }
         return currentSession;
     }
