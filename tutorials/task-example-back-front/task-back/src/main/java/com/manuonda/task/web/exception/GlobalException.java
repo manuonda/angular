@@ -26,4 +26,14 @@ public class GlobalException extends RuntimeException{
         problemDetail.setDetail(ex.getLocalizedMessage());
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(problemDetail);
     }
+
+    @ExceptionHandler(FoundException.class)
+    public ResponseEntity<ProblemDetail> handleFoundException(FoundException ex){
+        log.info("handleFoundException {}", ex.getMessage());
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FOUND, getLocalizedMessage());
+        problemDetail.setTitle("El recurso ya existe");
+        problemDetail.setStatus(403);
+        problemDetail.setDetail(ex.getLocalizedMessage());
+        return ResponseEntity.status(HttpStatus.FOUND).body(problemDetail);
+    }
 }

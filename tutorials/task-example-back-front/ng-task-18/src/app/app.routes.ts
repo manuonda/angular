@@ -3,16 +3,16 @@ import { privateGuard, publicGuard } from './core/auth.guard';
 
 export const routes: Routes = [ 
 
-    {   canActivateChild: [publicGuard()],
+    {   canActivate: [publicGuard()],
         path: 'auth',
         loadChildren:() => import("./auth/features/auth.route")
     },{
-        canActivateChild: [privateGuard()],
+        canActivate: [privateGuard()],
         path:'dashboard',
-        loadChildren : () => import("./task/features/task.route")
-    },{
-        path:'**',
-        redirectTo: 'auth'
-    }
+        loadComponent : () => import("./dashboard/dashboard.component")
+    }, {
+        path: '**',
+        redirectTo: 'dashboard',
+    },
 
 ];

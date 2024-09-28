@@ -12,8 +12,13 @@ import com.manuonda.task.model.domain.Role;
 import com.manuonda.task.model.dto.AuthResponse;
 import com.manuonda.task.model.dto.LoginRequest;
 import com.manuonda.task.model.dto.RegisterRequest;
+import com.manuonda.task.model.dto.UserDTO;
 import com.manuonda.task.model.entity.User;
 import com.manuonda.task.repository.IUserRepository;
+import com.manuonda.task.web.exception.FoundException;
+
+import java.util.Optional;
+import java.util.*;
 
 @Service
 public class AuthService {
@@ -33,7 +38,7 @@ public class AuthService {
     }
 
     public AuthResponse login(LoginRequest request) {
-        String token = null;
+               String token = null;
       
             UserDetails userDetails = this.userRepository.findByUsername(request.username())
                     .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
@@ -50,8 +55,15 @@ public class AuthService {
     /**
      * @param userDTO
      * @return
-     */
-    public AuthResponse registerUser(RegisterRequest userDTO) {
+          * @throws Exception 
+          */
+         public AuthResponse registerUser(RegisterRequest userDTO){
+
+        Optional<User> findUserByName = this.userRepository.findByUsername(userDTO.username());
+        
+        if(findUserByName.isPresent()){
+          throw new FoundException("User already exists by Username");
+        }
 
         User user = this.toUser(userDTO);
         User newUser = this.userRepository.save(user);
@@ -67,6 +79,17 @@ public class AuthService {
                 .role(Role.USER)
                 .email(dto.email())
                 .build();
+    }
+
+    private UserDTO toUserDTO(User user){
+        return new UserDTO(user.getId(),user.getEmail(),user.getUsername(),user.getLastname(),
+        user.getPassword(),user.getRole());
+    }
+
+
+    public List<UserDTO> findAll(UserDTO userDTO){
+        
+        return null;
     }
 
 }

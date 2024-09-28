@@ -1,39 +1,39 @@
 import { inject } from "@angular/core";
-import { CanActivateChildFn, CanActivateFn, Router } from "@angular/router";
-import { LocalStorageService } from "../shared/local-storage.service";
+import { CanActivateFn, Router } from "@angular/router";
 import AuthStateService from "../shared/auth-state.service";
 
 
-export const privateGuard = ():CanActivateFn => {
+export const privateGuard = (): CanActivateFn => {
     return () => {
-      
-       const authService = inject(AuthStateService);
-       const router = inject(Router)
-
-       const session = authService.getSession();
-       if( session) {
-        return  true;
-       }
-       router.navigateByUrl("/auth/sign-in")
-       return false;
-    }
-}
-
-
-
-export const publicGuard = ():CanActivateFn => {
-    return () => {
-        console.log("public guard")
-        const authService = inject(AuthStateService);
-        const router = inject(Router)
-
-        const session = authService.getSession();
-        console.log("session in public guard : ", session)
-        if (session) {
-            router.navigateByUrl("/dashboard")
-            return false
-        }
-
+      const authState = inject(AuthStateService);
+      const router = inject(Router);
+  
+      const session = authState.getSession();
+  
+      if (session) {
         return true;
-    }
-}
+      }
+  
+      router.navigateByUrl('/auth/log-in');
+  
+      return false;
+    };
+  };
+  
+  export const publicGuard = (): CanActivateFn => {
+    return () => {
+      const authState = inject(AuthStateService);
+      const router = inject(Router);
+  
+      const session = authState.getSession();
+  
+      console.log(session);
+  
+      if (session) {
+        router.navigateByUrl('/dashboard');
+        return false;
+      }
+  
+      return true;
+    };
+  };
