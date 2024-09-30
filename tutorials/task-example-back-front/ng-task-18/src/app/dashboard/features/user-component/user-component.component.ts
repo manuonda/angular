@@ -8,12 +8,13 @@ import { User } from '../../../auth/data-access/auth.service';
   templateUrl: './user-component.component.html',
   styles: ``,
   changeDetection: ChangeDetectionStrategy.OnPush
-})
+})  
 export class UserComponentComponent {
 
   email = input<string>('');
   firstname= input<string>("");
   lastname = input<string>("");
   user = input<User>();
+
   
 }
