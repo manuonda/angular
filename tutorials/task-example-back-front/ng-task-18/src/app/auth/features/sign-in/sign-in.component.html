@@ -15,9 +15,11 @@
                       </h1>
                       <app-google-button  />
                     </div>
+                    {{information}}
+                    {{_responseError}}
                 @if(_existError == true ){
                   <div class="p-6 bg-red-100 rounded-lg dark:bg-red-200 dark:text-red-800">
-                    <span class="text-red-400">{{_responseError?.title}}</span>
+                    <span class="text-red-400">{{_responseError}}</span>
                   </div>
                 } 
                 <form  [formGroup]="form" (ngSubmit)="submit()"
@@ -64,6 +66,18 @@
                 </p>
                     
                 </form>
+
+                <h3>Instance variable counter {{ count }}</h3>
+                <button (click)="increment()">inc count</button>
+            
+                <h3>signal counter {{ signalCount() }}</h3>
+                <button (click)="incrementSignal()">inc count</button>
+            
+                <h3>observable counter {{ observableCount.getValue() }}</h3>
+                <button (click)="incrementObservable()">inc count</button>
+            
+                {{ detectChanges() }}
+                
             </div>
             </div>
         </div>

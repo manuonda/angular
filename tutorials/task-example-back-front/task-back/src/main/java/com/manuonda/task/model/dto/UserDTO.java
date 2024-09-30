@@ -11,7 +11,6 @@ public record UserDTO(
     String email,
     String username,
     String lastname,
-    String password,
     @Enumerated(EnumType.STRING)
     Role role
 ) {

@@ -9,7 +9,7 @@ export const routes: Routes = [
     },{
         canActivate: [privateGuard()],
         path:'dashboard',
-        loadComponent : () => import("./dashboard/dashboard.component")
+        loadComponent : () => import("./dashboard/features/dashboard.component")
     }, {
         path: '**',
         redirectTo: 'dashboard',

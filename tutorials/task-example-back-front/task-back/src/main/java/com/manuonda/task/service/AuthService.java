@@ -1,5 +1,6 @@
 package com.manuonda.task.service;
 
+import org.hibernate.annotations.NotFound;
 import org.springframework.boot.autoconfigure.neo4j.Neo4jProperties.Authentication;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -16,6 +17,7 @@ import com.manuonda.task.model.dto.UserDTO;
 import com.manuonda.task.model.entity.User;
 import com.manuonda.task.repository.IUserRepository;
 import com.manuonda.task.web.exception.FoundException;
+import com.manuonda.task.web.exception.NotFoundException;
 
 import java.util.Optional;
 import java.util.*;
@@ -29,7 +31,8 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
 
     public AuthService(IUserRepository userRepository,
-            PasswordEncoder passwordEncoder, JwtService jwtService,
+            PasswordEncoder passwordEncoder, 
+            JwtService jwtService,
             AuthenticationManager authenticationManager) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
@@ -41,7 +44,7 @@ public class AuthService {
                String token = null;
       
             UserDetails userDetails = this.userRepository.findByUsername(request.username())
-                    .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+                    .orElseThrow(() -> new NotFoundException("Username not found"));
             authenticationManager
                     .authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
             
@@ -83,13 +86,14 @@ public class AuthService {
 
     private UserDTO toUserDTO(User user){
         return new UserDTO(user.getId(),user.getEmail(),user.getUsername(),user.getLastname(),
-        user.getPassword(),user.getRole());
+        user.getRole());
     }
 
 
     public List<UserDTO> findAll(UserDTO userDTO){
-        
-        return null;
+        List<UserDTO> users = this.userRepository.findAll().stream()
+        .map(this::toUserDTO).toList();
+        return users;
     }
 
 }

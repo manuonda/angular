@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectorRef, Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { toast } from 'ngx-sonner';
 import { AuthService, User } from '../../data-access/auth.service';
 import { isRequired, hasEmailError } from '../../utils/validador';
 import { Router, RouterLink } from '@angular/router';
 import { GoogleButtonComponent } from '../../ui/google-button/google-button.component';
+import { BehaviorSubject } from 'rxjs';
 
 
 interface FormSignIn {
@@ -29,7 +30,14 @@ export default class SignInComponent {
   private _authService = inject(AuthService);
   private _router = inject(Router);
   public _existError:boolean = false; 
-  public _responseError:ResponseError | null = null;
+  public _responseError = signal<string>("");
+  public information ="datos"
+
+  observableCount = new BehaviorSubject(0);
+  signalCount = signal<number>(0);
+  count = 0;
+
+  cdr = inject(ChangeDetectorRef);
 
 
   form = this._formBuilder.group<FormSignIn>({
@@ -43,6 +51,7 @@ export default class SignInComponent {
   isEmailRequired() { return hasEmailError(this.form); }
 
   async submit() {
+    this.information ="que onda";
     console.log(this.form.invalid);
     if (this.form.invalid) return;
 
@@ -60,21 +69,29 @@ export default class SignInComponent {
       },
       error:(err: any) => {
         this._existError = true;
-        this._responseError = err?.error;
+        //this._responseError = err?.error.detail;
+        this._responseError.set(err?.error.detail);
         toast.error('Se produjo un error de login');
-        console.error(`Error : `,JSON.stringify(err));
+        //console.error(`Error : `,JSON.stringify(err));
+        this._responseError = err?.error.detail;
       },
-    });
-    // try {
-    //   const resp = await this._authService.signIn(userData);   
-    //   const json = await resp;
-    //   this._router.navigate(['/tasks']);
-    //   console.log("resp : ", json);
-  
-    // } catch (error) {
-    //   console.error(`Error ${error}`);
-    //   toast.error("Error : " + error);
-    // }   
-    
+    }); 
+
+    this.cdr.markForCheck();
+  }
+
+  increment() {
+    this.count++;
+  }
+  incrementSignal() {
+    this.signalCount.set(this.signalCount() + 1);
+    console.log("signalCount", this.signalCount());
+  }
+  incrementObservable() {
+    this.observableCount.next(this.observableCount.value + 1);
+  }
+
+  detectChanges() {
+    console.log(" ROOT_COMPONENT detected changes", new Date().getSeconds());
   }
 }

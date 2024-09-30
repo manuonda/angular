@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException.NotFound;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,6 +33,16 @@ public class GlobalException extends RuntimeException{
         log.info("handleFoundException {}", ex.getMessage());
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FOUND, getLocalizedMessage());
         problemDetail.setTitle("El recurso ya existe");
+        problemDetail.setStatus(403);
+        problemDetail.setDetail(ex.getLocalizedMessage());
+        return ResponseEntity.status(HttpStatus.FOUND).body(problemDetail);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public ResponseEntity<ProblemDetail> handleNotFoundException(NotFoundException ex){
+        log.info("handleNotFoundException {}", ex.getMessage());
+        ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(HttpStatus.FOUND, getLocalizedMessage());
+        problemDetail.setTitle(ex.getMessage());
         problemDetail.setStatus(403);
         problemDetail.setDetail(ex.getLocalizedMessage());
         return ResponseEntity.status(HttpStatus.FOUND).body(problemDetail);
