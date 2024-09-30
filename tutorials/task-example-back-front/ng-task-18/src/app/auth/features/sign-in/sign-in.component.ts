@@ -65,6 +65,7 @@ export default class SignInComponent {
     console.log("userdata : ", userData);
     this._authService.signIn(userData).subscribe({
       next:(resp) => {
+         console.log("resp: " , resp);
          this._router.navigateByUrl('dashboard');
       },
       error:(err: any) => {

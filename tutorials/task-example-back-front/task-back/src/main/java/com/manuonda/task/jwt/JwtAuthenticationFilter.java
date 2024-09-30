@@ -1,6 +1,7 @@
 package com.manuonda.task.jwt;
 
 import java.io.IOException;
+import java.util.Enumeration;
 
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -60,6 +61,13 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
 
 
     private String getTokenFromRequest(HttpServletRequest request){
+        System.out.println(request.getHeader("Authorization"));
+        Enumeration<String> headerNames = request.getHeaderNames();
+        while(headerNames.hasMoreElements()){
+            String headerName = headerNames.nextElement();
+            System.out.println(headerName);
+        }
+        System.out.println(request.getHeaderNames());
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 
         if(StringUtils.isNotBlank(authHeader) && authHeader.startsWith("Bearer ")){

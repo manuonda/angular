@@ -3,16 +3,21 @@ import { AuthService } from "../data-access/auth.service";
 import AuthStateService from "../../shared/auth-state.service";
 import { inject } from "@angular/core";
 
+
+
+
+
 export const authInterceptor: HttpInterceptorFn = (
     request: HttpRequest<any>,
     next: HttpHandlerFn
   ) => {
 
     const authStateService = inject(AuthStateService)
-    let token = authStateService.getSession();
+    let access_token = authStateService.getSession();
+    debugger;
     request = request.clone({
         setHeaders:{
-            Authorization: `Bearer: ${token}`
+            Authorization: `Bearer ${access_token?.token}`
         }
     })
     return next(request);

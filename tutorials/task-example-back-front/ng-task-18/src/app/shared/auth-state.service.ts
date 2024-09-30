@@ -2,7 +2,7 @@ import { inject, Injectable } from "@angular/core";
 import { LocalStorageService } from "./local-storage.service";
 
 interface Session{
-    session: string
+    token: string
 }
 
 @Injectable({
@@ -18,7 +18,7 @@ export default class AuthStateService{
     getSession():Session | null {
 
         let currentSession : Session | null = null;
-        const maybeSession = this._localStorageService.get<Session>("session");
+        const maybeSession = this._localStorageService.get<Session>("access_token");
         if( maybeSession !== null && this._isValidateSession(maybeSession)){
             currentSession = maybeSession
         } else {
@@ -31,7 +31,7 @@ export default class AuthStateService{
     private _isValidateSession(maybeSession:unknown):boolean{
         return ( typeof maybeSession === 'object' &&
         maybeSession !== null &&
-        'session' in maybeSession);
+        'token' in maybeSession);
     }
    
 }
