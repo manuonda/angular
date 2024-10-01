@@ -20,7 +20,7 @@ import static org.springframework.security.config.Customizer.withDefaults;
 import java.util.Arrays;
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
@@ -38,31 +38,23 @@ public class SecurityConfig {
            .requestMatchers("/swagger-ui/**").permitAll()
            .anyRequest().authenticated()
            )
-           .cors( c -> c.configurationSource(corsConfigurationSource()))
-           .sessionManagement(sessionManager -> 
-           sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-           .authenticationProvider(authenticationProvider)
-           .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+           //.cors( c -> c.configurationSource(corsConfigurationSource()))
+           //.sessionManagement(sessionManager -> 
+           //sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+           //.authenticationProvider(authenticationProvider)
+           //.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
            .build();
          
         
     }
 
-    // @Bean
-    // public CorsConfigurationSource corsConfigurationSource() {
-    //     CorsConfiguration configuration = new CorsConfiguration();
-    //     configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200", "http://127.0.0.1:4200"));
-    //     configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE"));
-    //     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    //     source.registerCorsConfiguration("/**", configuration);
-    //     return source;
-    // }
+
 
     @Bean
 public CorsConfigurationSource corsConfigurationSource() {
     CorsConfiguration configuration = new CorsConfiguration();  
 
-    configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));  
+    configuration.setAllowedOrigins(Arrays.asList("*"));  
  // Add the frontend origin here
     configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
     configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));  

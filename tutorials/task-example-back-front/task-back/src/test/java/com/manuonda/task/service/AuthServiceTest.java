@@ -9,6 +9,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.manuonda.task.model.dto.AuthResponse;
+import com.manuonda.task.model.dto.RegisterRequest;
+import com.manuonda.task.model.entity.User;
 import com.manuonda.task.repository.IUserRepository;
 
 
@@ -24,10 +27,16 @@ public class AuthServiceTest {
     private AuthService authService;
 
     
-
+    User user;
+    AuthResponse authResponse;
+    RegisterRequest userDTO;
     
+
     @Test
     void testFindAll() {
+
+
+
 
     }
 

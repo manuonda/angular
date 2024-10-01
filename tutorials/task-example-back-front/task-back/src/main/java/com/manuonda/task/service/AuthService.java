@@ -71,7 +71,7 @@ public class AuthService {
         return new AuthResponse(this.jwtService.getToken(newUser));
     }
 
-    private User toUser(RegisterRequest dto) {
+    public User toUser(RegisterRequest dto) {
         return User.builder()
                 .username(dto.username())
                 .lastname(dto.lastname())
@@ -81,7 +81,7 @@ public class AuthService {
                 .build();
     }
 
-    private UserDTO toUserDTO(User user){
+    public UserDTO toUserDTO(User user){
         return new UserDTO(user.getId(),user.getEmail(),user.getUsername(),user.getLastname(),
         user.getRole());
     }
