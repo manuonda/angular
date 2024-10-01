@@ -41,17 +41,14 @@ public class AuthService {
     }
 
     public AuthResponse login(LoginRequest request) {
-               String token = null;
-      
-            UserDetails userDetails = this.userRepository.findByUsername(request.username())
+         String token = null;
+         UserDetails userDetails = this.userRepository.findByUsername(request.username())
                     .orElseThrow(() -> new NotFoundException("Username not found"));
-            authenticationManager
-                    .authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
-            
-
+        //authentication user
+        authenticationManager
+        .authenticate(new UsernamePasswordAuthenticationToken(request.username(), request.password()));
             token = jwtService.getToken(userDetails);
-     
-
+       
         return new AuthResponse(token);
     }
 

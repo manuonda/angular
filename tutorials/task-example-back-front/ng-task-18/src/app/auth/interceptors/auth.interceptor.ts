@@ -15,10 +15,13 @@ export const authInterceptor: HttpInterceptorFn = (
     const authStateService = inject(AuthStateService)
     let access_token = authStateService.getSession();
     debugger;
-    request = request.clone({
-        setHeaders:{
-            Authorization: `Bearer ${access_token?.token}`
-        }
-    })
+    if(access_token != null ) {
+        request = request.clone({
+            setHeaders:{
+                Authorization: `Bearer ${access_token?.token}`
+            }
+        })
+    }
+    
     return next(request);
 }     
