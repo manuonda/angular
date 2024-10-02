@@ -35,10 +35,10 @@ public class AuthController {
     }
 
     @Operation(summary = "Register User")
-    @ApiResponse(responseCode = "200", description = "Response Status 200")
+    @ApiResponse(responseCode = "201", description = "Response Status 200")
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> registerUser(@Valid @RequestBody RegisterRequest dto ) {
-        return  ResponseEntity.status(HttpStatus.OK).body(this.authService.registerUser(dto));
+        return  ResponseEntity.status(HttpStatus.CREATED).body(this.authService.registerUser(dto));
     }
 
 

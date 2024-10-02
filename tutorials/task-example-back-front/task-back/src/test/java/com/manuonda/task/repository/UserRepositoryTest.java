@@ -18,7 +18,7 @@ import com.manuonda.task.model.entity.User;
 
 @DataJpaTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class IUserRepositoryTest {
+class UserRepositoryTest {
 
     @Autowired
     private IUserRepository userRepository;

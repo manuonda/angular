@@ -20,48 +20,42 @@ import static org.springframework.security.config.Customizer.withDefaults;
 import java.util.Arrays;
 
 @Configuration
-//@EnableWebSecurity
+@EnableWebSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final AuthenticationProvider authenticationProvider;
-    //private final CustomCorsConfiguration customCorsConfiguration;
+    // private final CustomCorsConfiguration customCorsConfiguration;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-       return  http.csrf(csrf -> csrf.disable())
-        .authorizeHttpRequests( authRequest
-           -> authRequest
-           .requestMatchers("/api/v1/auth/**").permitAll()
-           .requestMatchers("/swagger-ui/**").permitAll()
-           .anyRequest().authenticated()
-           )
-           //.cors( c -> c.configurationSource(corsConfigurationSource()))
-           //.sessionManagement(sessionManager -> 
-           //sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-           //.authenticationProvider(authenticationProvider)
-           //.addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-           .build();
-         
-        
+        return http.csrf(csrf -> csrf.disable())
+                .authorizeHttpRequests(authRequest -> authRequest
+                        .requestMatchers("/api/v1/auth/**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .anyRequest().authenticated())
+                .cors(c -> c.configurationSource(corsConfigurationSource()))
+                .sessionManagement(
+                        sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authenticationProvider(authenticationProvider)
+                .addFilterBefore(jwtAuthenticationFilter,
+                 UsernamePasswordAuthenticationFilter.class)
+                .build();
+
     }
 
-
-
     @Bean
-public CorsConfigurationSource corsConfigurationSource() {
-    CorsConfiguration configuration = new CorsConfiguration();  
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
 
-    configuration.setAllowedOrigins(Arrays.asList("*"));  
- // Add the frontend origin here
-    configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
-    configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));  
+        configuration.setAllowedOrigins(Arrays.asList("*"));
+        // Add the frontend origin here
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+        configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
 
-
-    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    source.registerCorsConfiguration("/**", configuration);
-    return source;
-}
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
 }
