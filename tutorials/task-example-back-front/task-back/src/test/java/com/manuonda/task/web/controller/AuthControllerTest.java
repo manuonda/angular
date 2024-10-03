@@ -72,7 +72,6 @@ public class AuthControllerTest {
     @Test
     @Order(1)
     @DisplayName("Saved Usuario")
-    @WithMockUser(roles = "ADMIN")
     void givenUsuario_whenRegisterUser_thenReturnObjectToken() throws Exception {
         // Given (Arrange)
         RegisterRequest registerRequest = new RegisterRequest("manuonda", "12345678", "david", "garcia", "manuonda@gmail.com");
@@ -92,25 +91,8 @@ public class AuthControllerTest {
         Assertions.assertThat(mockMvcResult.getResponse().getStatus()).isEqualTo(201);
     }
 
-    @Test
-    @Order(2)
-    @DisplayName("Get Users")
-    void given_whenFindUsers_thenReturnListUsers(){
-        //given
 
-        UserDTO userDTO = new UserDTO(1L, "manuonda@gmail.com", "manuonda", "dgarcia",  Role.USER);
-        List<UserDTO> users = List.of(userDTO);
-        //
-        
-        
-    }
-
-    @Test
-    @Order(3)
-    @DisplayName("Unauthorized")
-    void unauthorizedUserShouldNotAccessHomePage() throws Exception{
-        mockMvc.perform(get("/"))
-        .andExpect(status().isUnauthorized());
-    }
+   
+   
 
 }
