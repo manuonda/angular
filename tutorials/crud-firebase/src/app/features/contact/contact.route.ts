@@ -5,6 +5,6 @@ import path from "path";
 export default [
     {
         path:'',
-        loadComponent: () => import('')
+        loadComponent: () => import('../contact/list/list.component').then(m => m.ListComponent)
     }
 ] as Routes;

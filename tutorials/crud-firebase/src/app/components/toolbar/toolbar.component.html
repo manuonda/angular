@@ -1,1 +1,16 @@
-<p>toolbar works!</p>
+<mat-toolbar color="primary">
+    <a mat-button routerLink="/" >
+      <mat-icon>Home</mat-icon>
+      <span>Home</span>
+    </a>
+
+    <a mat-button routerLink="/contacts" >
+      <mat-icon>list-alt</mat-icon>
+      <span>Contacts</span>
+    </a>
+    <span class="spacer"></span>
+    <a mat-button (click) = "emitClick()">
+       <mat-icon>add_box</mat-icon>
+       <span>New</span>
+    </a>       
+</mat-toolbar>
