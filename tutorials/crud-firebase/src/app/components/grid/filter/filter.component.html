@@ -1,1 +1,4 @@
-<p>filter works!</p>
+<mat-form-field class="matFormField">
+    <mat-label>{{label()}}</mat-label>
+    <input matInput type="text" [(ngModel)]="filter" [placeholder]="placeholder()">
+</mat-form-field>

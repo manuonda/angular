@@ -1,5 +1,8 @@
 <section>
-    <app-grid [displayedColumns]="displayedColumns" 
-     [data]="data"
-    ></app-grid>
+    @if( data ) {
+        <app-grid [displayedColumns]="displayedColumns" 
+        [data]="data"
+        [sortableColumns]="sortableColumns"/>
+    }
+   
 </section>
