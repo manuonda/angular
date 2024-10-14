@@ -17,5 +17,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes), 
     provideClientHydration(), 
     provideAnimationsAsync(), 
-    provideFirebaseApp(() => initializeApp(environment.firebase)), provideFirestore(() => getFirestore())]
+    provideFirebaseApp(() => initializeApp({
+      apiKey: "AIzaSyC3VbcSwT3CGOt6BB9xMf33CAUjmxlu0-g",
+      projectId: "crud-angular-18-manuonda",
+      appId: "1:627106400921:web:cb5ebdd3b02684248d0608"
+
+    })), provideFirestore(() => getFirestore())]
 };

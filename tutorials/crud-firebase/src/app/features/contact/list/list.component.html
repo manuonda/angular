@@ -1,4 +1,10 @@
 <section>
+    <div class="example-button-container">
+        <a mat-fab extended routerLink=".">
+          <mat-icon>favorite</mat-icon>
+          Link
+        </a>
+      </div>
     @if( data ) {
         <app-grid [displayedColumns]="displayedColumns" 
         [data]="data"

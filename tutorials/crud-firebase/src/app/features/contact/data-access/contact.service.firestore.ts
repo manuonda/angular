@@ -1,7 +1,8 @@
-import { inject, Injectable } from '@angular/core';
-import { addDoc, collection, DocumentData, DocumentReference, Firestore } from '@angular/fire/firestore';
+import { getDebugNode, inject, Injectable } from '@angular/core';
+import { addDoc, collection, collectionData, deleteDoc, doc, DocumentData, DocumentReference, Firestore, getDoc, orderBy, query, updateDoc } from '@angular/fire/firestore';
 import { APP_CONTANTS } from '@shared/constants';
 import { Contact } from '../contact.interface';
+import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -19,6 +20,27 @@ export class ContactServiceFirestore {
   }
 
   getAllContacts(){
-    
+    const queryFn = query(this._contactCollection, orderBy('created','desc'));
+    return collectionData(queryFn,{idField: 'id'}) as Observable<Contact[]>;
+  }
+
+  async  getContactById(id:string):Promise<Contact> {
+    const docRef = this._getDocRef(id);
+    const documentData = await getDoc(docRef);
+    return documentData.data() as Contact;
+  }
+
+  updateContact(id: string, contact: Contact):void{
+    const docRef = this._getDocRef(id);
+    updateDoc( docRef, {...contact});
+  }
+
+  deleteContact(id: string): void{
+    const docRef = this._getDocRef(id);
+    deleteDoc(docRef);
+  }
+
+  private _getDocRef(id:string){
+    return doc(this._firestore, APP_CONTANTS.COLLECTION_NAME,id);
   }
 }
