@@ -14,6 +14,7 @@ import { APP_CONTANTS } from '@shared/constants';
 import { ContactServiceFirestore } from '@features/contact/data-access/contact.service.firestore';
 import { ModalService } from '@components/modal/modal.service';
 import { ModalComponent } from '@components/modal/modal.component';
+import { SnackBarService } from '@shared/services/snack-bar.service';
 
 
 const MATERIAL_MODULES=[MatTableModule, MatPaginatorModule , MatButtonModule, MatIconModule];
@@ -36,15 +37,20 @@ export class GridComponent<T> implements OnInit{
    sortableColumns = input<string[]>([]);
    private readonly _contactSvc = inject(ContactServiceFirestore)
    private readonly _modalSvc = inject(ModalService)
+   private readonly _snackbar = inject(SnackBarService)
 
    constructor(){
     effect(() => {
+        console.log("userEffect");
         if(this.valueToFilter()){
           this.dataSource.filter = this.valueToFilter().trim().toLowerCase();
         } else {
           this.dataSource.filter= '';
         }
-    },{allowSignalWrites : true});
+       if(this.data()){
+        this.dataSource.data = this.data();
+       } 
+    },{allowSignalWrites : true });
   }
 
   ngOnInit(): void {
@@ -57,16 +63,17 @@ export class GridComponent<T> implements OnInit{
    const confirmation = confirm(APP_CONTANTS.MESSAGES.CONFIRMATION_PROMPT);
    if( confirmation){
      this._contactSvc.deleteContact(id);
-   }
+     this._snackbar.showSnackBar(APP_CONTANTS.MESSAGES.CONTACT_DELETED);
+    }
   }
 
   openEditForm(data: T): void{
     this._modalSvc.openModal<ModalComponent, T>(ModalComponent, data, true);
   }
 
-  // applyFilter(event: Event){
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-  // }
+ 
+  selectedRow(data:T):void{
+    this.openEditForm(data);
+  }
 }
 

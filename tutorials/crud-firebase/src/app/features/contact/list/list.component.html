@@ -1,12 +1,10 @@
 <section>
     <div class="example-button-container">
       <button mat-button (click)="onClickNewContact()" color="primary">Basic</button>
-      <button mat-button (click)="onClickPagoMercadoPago()" color="secondary">Pago</button>  
     </div>
-    @if( data ) {
+    
         <app-grid [displayedColumns]="displayedColumns" 
-        [data]="data"
+        [data]="contacts()"
         [sortableColumns]="sortableColumns"/>
-    }
-   
+    
 </section>

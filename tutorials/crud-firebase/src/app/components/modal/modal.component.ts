@@ -7,6 +7,7 @@ import { ContactServiceFirestore } from '@features/contact/data-access/contact.s
 import { ModalService } from './modal.service';
 import { APP_CONTANTS } from '@shared/constants';
 import { MatButtonModule } from '@angular/material/button';
+import { SnackBarService } from '@shared/services/snack-bar.service';
 
 
 const MATERIAL_MODULES= [
@@ -31,6 +32,7 @@ export class ModalComponent implements OnInit{
   private readonly _matDialog = inject(MAT_DIALOG_DATA); 
   private readonly _contactSvc = inject(ContactServiceFirestore);
   private readonly _modalSvc  = inject(ModalService)
+  private readonly _snackBar = inject(SnackBarService)
 
   ngOnInit(): void {
     this._buildForm();
@@ -51,6 +53,7 @@ export class ModalComponent implements OnInit{
 
     console.log(message);
     //show snackbar
+    this._snackBar.showSnackBar(message);
     this._modalSvc.closeModal();
 
   }

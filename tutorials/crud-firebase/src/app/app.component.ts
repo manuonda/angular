@@ -5,8 +5,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinner} from '@angular/material/progress-spinner'
 
-const MATERIAL_MODULES = [MatCardModule, MatToolbarModule, MatIconModule, MatButtonModule];
+const MATERIAL_MODULES = [MatCardModule, MatToolbarModule, 
+  MatIconModule, MatButtonModule, MatProgressSpinner];
 
 @Component({
   selector: 'app-root',
