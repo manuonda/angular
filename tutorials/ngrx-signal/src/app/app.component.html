@@ -1,0 +1,13 @@
+<div class="container">
+  <p>Todos {{visibleTasks()}}</p>
+  @for (task of tasks(); track $index) {
+    <li>{{task.title}}</li>
+  }
+
+  <hr/>
+  <div>
+    <button (click)="showPendingTasks()">Pending</button>
+    <button (click)="showAllTasks()">All</button>
+    <button (click)="showDoneTasks()">Done</button>
+  </div>
+</div>
