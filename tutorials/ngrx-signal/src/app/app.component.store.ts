@@ -1,5 +1,6 @@
 import { computed } from '@angular/core';
 import { signalStore, withState, withComputed ,withMethods, patchState } from '@ngrx/signals';
+import { compileFunction } from 'vm';
 
 
 export interface Task{
@@ -24,6 +25,7 @@ const initialState: TaskState = {
 };
 
 export const TaskStore = signalStore(
+  {providedIn: 'root'},
   withState(initialState),
   withComputed((state:any) => ({
     visibleTasks : computed(() => {
@@ -45,6 +47,14 @@ export const TaskStore = signalStore(
        patchState(store,{
         filter: newFilter
        })
+    },
+    loadTasks : () => {
+       const tasks = [
+        { id :1 , title: 'title1',completed: false },
+        { id :2 , title: 'title2',completed: true },
+        { id :3 , title: 'title3',completed: false }
+       ];
+       patchState(store , { tasks })
     }
 
   }))
