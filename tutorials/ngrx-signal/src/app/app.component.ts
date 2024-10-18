@@ -14,30 +14,8 @@ import { Filter, Task, TaskStore } from './app.component.store';
 })
 export class AppComponent {
   title = 'ngrx-signal';
-  store = inject(TaskStore)
+  readonly store = inject(TaskStore)
   
-  tasks = signal<Task[]>([
-    { id: 1, title:"Title1", completed: false},
-    { id: 2, title:"Title2", completed: true},
-    { id: 3, title:"Title3", completed: false}
-  ])
-  filter = signal<Filter>('all');
-
-  visibleTasks = computed(() => {
-     const tasks = this.tasks();
-     const filter = this.filter();
-     if( filter === 'all'){
-        return tasks.filter((task)=> !task.completed);
-     }
-    if (filter === 'done'){
-      return tasks.filter((task) => task.completed );
-     }
-
-     return this.tasks();
-  });
-
-  changeFilter(filter:Filter){
-    this.filter.set(filter);
-  }
+  
 
 }

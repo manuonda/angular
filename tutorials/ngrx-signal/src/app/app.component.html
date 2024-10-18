@@ -1,13 +1,13 @@
 <div class="container">
-  <p>Todos {{visibleTasks().length}}</p>
-  @for (task of visibleTasks(); track $index) {
+  <p>Todos {{store.visibleTasks().length}}</p>
+  @for (task of store.visibleTasks(); track $index) {
     <li>{{task.title}}</li>
   }
 
   <hr/>
   <div>
-    <button (click)="changeFilter('pending')">Pending</button>
-    <button (click)="changeFilter('all')">All</button>
-    <button (click)="changeFilter('done')">Done</button>
+    <button (click)="store.changeFilter('pending')">Pending</button>
+    <button (click)="store.changeFilter('all')">All</button>
+    <button (click)="store.changeFilter('done')">Done</button>
   </div>
 </div>
