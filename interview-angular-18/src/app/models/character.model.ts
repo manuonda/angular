@@ -5,6 +5,12 @@ export enum Gender{
     'GENDERLESS'='Genderless',
     'UNKNOWN'='unknown'
 };
+export interface Info {
+    count: number;
+    pages: number;
+    next: string;
+    prev: string;
+}
 
 export interface CharacterInfo{
     info: Info;
@@ -41,9 +47,15 @@ export const emptyCharacter: Character = {
     status: "",
     species: "",
     type: "",
-    gender: "",
-    origin: undefined,
-    location: undefined,
+    gender: Gender.MALE,
+    origin: {
+        name:"",
+        link:""
+    },
+    location: {
+        name: "",
+        link:""
+    },
     image: "",
     episode: [],
     url: "",
