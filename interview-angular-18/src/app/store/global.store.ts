@@ -1,7 +1,7 @@
 import { inject, InjectionToken } from "@angular/core";
 import { Character } from "@app/models"
 import { CharacterService } from "@app/services";
-import {patchState, signalStore, withMethods, withState} from "@ngrx/signals"
+import {patchState, signalStore, withHooks, withMethods, withState} from "@ngrx/signals"
 import { lastValueFrom } from "rxjs";
 import { addEntity, removeEntities, removeEntity, updateEntity, withEntities } from '@ngrx/signals/entities';
 
@@ -69,5 +69,11 @@ export const GlobalStore = signalStore(
             
         }
     }
-  }))
+  })),
+  withHooks({
+      async onInit(store, characterService = inject(CharacterService)){
+        const characters = await lastValueFrom(characterService.getAllCharacteres()); 
+        patchState(store, {characters}); 
+      } 
+  })
 )

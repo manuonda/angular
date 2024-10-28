@@ -1,1 +1,18 @@
-<p>main-container works!</p>
+
+
+<div class="card flex justify-content-center">
+    <p-card header="Simple Card">
+        <p class="m-0">
+   
+            @defer (when store.characters().length) {
+                @for (character of store.characters(); track character.id) {
+                   @defer (on viewport) {
+                     {{character.name}}
+                   }@placeholder {
+                      <div>...Loading</div>
+                   }   
+                }  
+              }
+        </p>
+    </p-card>
+</div>
