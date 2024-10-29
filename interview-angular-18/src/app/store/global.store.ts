@@ -46,11 +46,11 @@ export const GlobalStore = signalStore(
     async removeCharacter(id:number){
         try {
             await lastValueFrom(characterService.removeCharacter(id))
-            /*patchState(store,({characters}) => ({
+            patchState(store,({characters}) => ({
                 characters: [...characters.filter(char => char.id !== id)]
               })
-            )*/
-           patchState(store, removeEntity(id));
+            )
+           //patchState(store, removeEntity(id));
         } catch (error) {
             
         }

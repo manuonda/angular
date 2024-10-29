@@ -3,10 +3,13 @@
 @if(characterLocal){
     <div class="card flex justify-content-center">
         <p-card header="Simple Card">
-            <p class="m-0">
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque
-                quas!
-            </p>
+          <p>{{characterLocal.name}}</p>
+          <img [ngSrc]="characterLocal.image" [alt]="characterLocal.name" width="200" height="200" />
+        
+           
+          <div>
+            <button (click)="removeCharacter(characterLocal.id)">Remove Character</button>
+          </div>
         </p-card>
     </div>
 }
