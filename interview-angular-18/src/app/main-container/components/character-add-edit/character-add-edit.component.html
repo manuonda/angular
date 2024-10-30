@@ -1,1 +1,22 @@
-<p>character-add-edit works!</p>
+<div>
+    <form [formGroup]="characterForm()" (ngSubmit)="onSubmit()">
+        <app-custom-input
+         [control]="$any(characterForm().get('name'))"
+         placeHolder="Enter Character Name"
+         type="text"
+         errorMessage="Name is Required"
+         label="Name:"
+        />
+
+        <app-custom-input
+        [control]="$any(characterForm().get('image'))"
+        placeHolder="Enter Character Image"
+        type="text"
+        errorMessage="Image is Required"
+        label="Image:"
+       />
+       <button type="submit" [disabled]="characterForm().invalid">
+        {{ characterToEdit().name? "Edit Character" :"Add Character"}}
+       </button>
+    </form>
+</div>
