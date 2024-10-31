@@ -11,7 +11,7 @@ export const routes: Routes = [
         .then((m) => m.MainContainerComponent) 
     },
     {
-        path:"characters/:id",
+        path:"add-character-edit/:id",
         loadComponent:() => import("./main-container/components/character-add-edit/character-add-edit.component")
         .then((m) => m.CharacterAddEditComponent) 
     }

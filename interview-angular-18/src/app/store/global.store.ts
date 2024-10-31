@@ -28,19 +28,19 @@ export const GlobalStore = signalStore(
     async addCharacter(character: Omit<Character, "id">){
         try {
             await lastValueFrom(characterService.addCharacter(character)) 
-            // patchState(store,({characters}) => ({
-            //     characters:[...characters,{
-            //         id: new Date().getTime(),
-            //         ...character
-            //     }]
-            //   })
-            // )
-            patchState(store, addEntity({
-                id: new Date().getTime(),
-                ...character
-            }))
+            patchState(store,({characters}) => ({
+                characters:[...characters,{
+                    id: new Date().getTime(),
+                    ...character
+                }]
+              })
+            )
+            // patchState(store, addEntity({
+            //     id: new Date().getTime(),
+            //     ...character
+            // }))
         } catch (error) {
-            
+            console.error(error)
         }
     },
     async removeCharacter(id:number){
@@ -58,12 +58,16 @@ export const GlobalStore = signalStore(
     async updateCharacter(updateCharacter: Character){
         try {
             await lastValueFrom(characterService.addCharacter(updateCharacter))
-            /*
+            
             patchState(store,({characters}) => ({
-                characters: [...characters.map((char) => char.id === updateCharacter.id? { ...char,...updateCharacter}: char)]
+                characters: [...characters.map((char) => 
+                    char.id === updateCharacter.id? 
+                    { ...char,...updateCharacter} : 
+                    char
+                   )]
               })
-            ) */
-           patchState(store, updateEntity({ id: updateCharacter.id , changes: {...updateCharacter} }))
+            ) 
+           //patchState(store, updateEntity({ id: updateCharacter.id , changes: {...updateCharacter} }))
 
         } catch (error) {
             

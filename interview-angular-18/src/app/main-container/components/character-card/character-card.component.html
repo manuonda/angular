@@ -8,7 +8,13 @@
         
            
           <div>
-            <button (click)="removeCharacter(characterLocal.id)">Remove Character</button>
+            <button (click)="removeCharacter(characterLocal.id)">
+              Remove Character
+            </button>
+            <a [routerLink]="['/add-character-edit/'+characterLocal.id]">
+              Edit Character
+              </a>
+
           </div>
         </p-card>
     </div>

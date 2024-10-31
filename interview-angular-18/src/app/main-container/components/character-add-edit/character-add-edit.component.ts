@@ -4,6 +4,7 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { emptyCharacter } from '@app/models';
 import { GlobalStore } from '@app/store';
 import {CustomInputComponent} from '@app/components'
+import { RouterLink } from '@angular/router';
 
 
 interface CharacterForm{

@@ -1,7 +1,8 @@
 
 
 <div class="card flex justify-content-center">
-    <p-card header="Simple Card">
+  <a routerLink="/add-charcter-edit">Add Character</a>  
+  <p-card header="Simple Card">
         <p class="m-0">
    
             @defer (when store.characters().length) {
@@ -15,4 +16,5 @@
               }
         </p>
     </p-card>
-</div>
+     
+  </div>
