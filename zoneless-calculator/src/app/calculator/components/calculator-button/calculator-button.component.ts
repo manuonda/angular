@@ -1,4 +1,4 @@
-import { Attribute, ChangeDetectionStrategy, Component, HostBinding, input, OnInit, output } from '@angular/core';
+import { Attribute, ChangeDetectionStrategy, Component, ElementRef, HostBinding, input, OnInit, output, viewChild } from '@angular/core';
 
 @Component({
   selector: 'calculator-button',
@@ -19,6 +19,7 @@ export class CalculatorButtonComponent  implements OnInit{
   public isCommand = input<boolean>(false);
   public isDoubleSize = input<boolean>(false);
   public onClick = output<string>();
+  public contentValue = viewChild<ElementRef<HTMLButtonElement>>('button');
 
   ngOnInit():void {
     console.log(this.isCommand())
@@ -30,5 +31,12 @@ export class CalculatorButtonComponent  implements OnInit{
 
   @HostBinding('class.w-2/4') get commandStyle(){
     return this.isDoubleSize();
+  }
+
+  handleClick():void{
+    console.log(this.contentValue());
+    console.log(this.contentValue()?.nativeElement.onpointerenter);
+    
+    this.onClick.emit("Hola mundo que onda");
   }
 }
