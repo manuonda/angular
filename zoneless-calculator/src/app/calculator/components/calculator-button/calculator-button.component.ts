@@ -16,12 +16,18 @@ export class CalculatorButtonComponent  implements OnInit{
 
   
 
-  _isCommand = input<boolean>(false);
+  public isCommand = input<boolean>(false);
+  public isDoubleSize = input<boolean>(false);
+
   ngOnInit():void {
-    console.log(this._isCommand())
+    console.log(this.isCommand())
   }
 
-  @HostBinding('class.is-command') get commandSylte(){
-    return this._isCommand();
+  // @HostBinding('class.is-command') get commandSylte(){
+  //   return this._isCommand();
+  // }
+
+  @HostBinding('class.w-2/4') get commandStyle(){
+    return this.isDoubleSize();
   }
 }
