@@ -1,0 +1,15 @@
+<form class="form" [formGroup]="form" (ngSubmit)="save()">
+  <input placeholder="Tu nombre" type="text" formControlName="name" />
+  <input-age [maxLength]="max" formControlName="age" />
+  <button type="submit">Guardar</button>
+</form>
+
+<div>
+  <p>Value: {{ ageControl?.value }}</p>
+</div>
+<div>
+  <p>Valid: {{ ageControl?.valid }}</p>
+  <p>Errors: {{ ageControl?.errors | json }}</p>
+</div>
+
+<button (click)="changeLength()">Change Length</button>
