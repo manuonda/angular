@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="counter-section">
+    <p>Counter: {{_stateService.counter()}}</p>
+     <button (click)="_stateService.incrementCounter()">Icrement Counter</button>
+  </div>
+</div>
+
+<div cass="auth-section">
+  @if(_stateService.isAuthenticated()){
+    <div class="user-info">
+      <p> Welcome {{_stateService.user().name}}</p>
+      <button (click)="_stateService.logout()"> Logout</button>
+    </div>
+  }
+
+  @if(!_stateService.isAuthenticated()){
+    <button (click)="_stateService.setUser('david')">
+    Login
+    </button>
+  }
+</div>
