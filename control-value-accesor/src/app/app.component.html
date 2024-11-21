@@ -1,6 +1,6 @@
 <form class="form" [formGroup]="form" (ngSubmit)="save()">
   <input placeholder="Tu nombre" type="text" formControlName="name" />
-  <input-age formControlName="age" /> 
+  <input-age [maxLength]="5" formControlName="age" /> 
 
   <!-- <input-age (changeValue)="change($event)" /> -->
   <button type="submit">Guardar</button>

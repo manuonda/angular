@@ -1,4 +1,4 @@
-import { Component, ElementRef, forwardRef, input, output, signal, viewChild } from '@angular/core';
+import { Component, ElementRef, forwardRef, Input, input, output, signal, viewChild } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, NG_VALIDATORS, NG_VALUE_ACCESSOR, ValidationErrors, Validator } from '@angular/forms';
 import { sign } from 'crypto';
 
@@ -34,8 +34,22 @@ const NG_VALIDATOR = {
 })
 
 export class InputAgeComponent  implements ControlValueAccessor, Validator{
+    
+    private _maxLength: number | null = null;
+    
+    @Input() set maxLength(value: number | null) {
+        this._maxLength = value;
+        //trigger
+
+        this._onvalidatorChange();
+    }
+
+    get maxLength(): number | null {
+        return this._maxLength;
+    }
+
     disabled = signal<boolean>(false);
-    maxLength = input<number>(0);
+    //maxLength = input<number>(0);
 
     value= signal<string>('');
 
@@ -93,6 +107,10 @@ export class InputAgeComponent  implements ControlValueAccessor, Validator{
         const value = control.value;
         if (!this.isValid(value)) {
           return {invalidAge: 'Age must contain only digits.'}
+        }
+
+        if(this.maxLength !== null && value.length > this.maxLength){
+            return {maxLengthExceeded: `Age must be less than ${this.maxLength} characters.`}
         }
         return null;
     }
