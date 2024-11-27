@@ -112,6 +112,14 @@ it('should handle decimal point correctly startin with zero', () => {
    expect(service.resultText()).toBe('1')
  });
 
+ it('should handle max length correctly ', () => {
+   for(let i = 0; i < 10 ;i++){
+    service.constructNumber('1')
+   }
+
+   expect(service.resultText().length).toBe(10)
+ });
+
  
 
 })
