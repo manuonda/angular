@@ -21,11 +21,13 @@ import { CategoryService } from '@features/categories/categories.service';
         </button>
       </li>
       <!-- TODO: Can be an  component -->
-      <li *ngFor="let category of categories$ | async; trackBy: trackById">
-        <button type="button" (click)="onClick(category)" class="btn btn-hover">
-          {{ category }}
-        </button>
-      </li>
+       @for( category of categories$ | async ; track category){
+         <li>
+           <button type="button" (click)="onClick(category)" class="btn btn-hover">
+             {{ category }}
+           </button>
+         </li>
+       }
     </ul>
   `,
 })
@@ -42,7 +44,5 @@ export class CategoryFilterComponent {
     });
   }
 
-  trackById(index: number, category: string): string {
-    return category;
-  }
+ 
 }

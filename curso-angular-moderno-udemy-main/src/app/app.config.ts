@@ -5,6 +5,7 @@ import {
   ApplicationConfig,
   importProvidersFrom,
   LOCALE_ID,
+  provideExperimentalZonelessChangeDetection,
   provideZoneChangeDetection,
 } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
@@ -18,14 +19,14 @@ registerLocaleData(localeEs, 'es');
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    { provide: LOCALE_ID, useValue: 'es' },
+    { provide:  LOCALE_ID, useValue: 'es' },
     provideAnimations(),
     provideToastr({
       positionClass: 'toast-bottom-right',
       timeOut: 1500,
       preventDuplicates: false,
     }),
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideExperimentalZonelessChangeDetection(),
     provideRouter(appRoutes),
     provideHttpClient(withFetch() , withInterceptors(
       [SpinnerInterceptor]

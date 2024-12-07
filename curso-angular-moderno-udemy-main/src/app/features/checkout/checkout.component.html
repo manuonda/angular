@@ -19,17 +19,18 @@
              </tr>
            </thead>
            <tbody>
-             <tr *ngFor="let product of (cartService.cart$ | async)?.products; let i = index"
-               class="border-b border-gray-200">
-               <td class="py-3">{{product.title | slice:0:35}}...</td>
-               <td class="py-3">{{product.quantity}}</td>
-               <td class="custom-table-cell-price">{{ product.subTotal || product.price | currency}}</td>
-               <td>
-                 <div class="remove-container">
-                   <app-remove-product (onClickRemoveProduct)="onRemoveProduct(product.id)" class="custom-flex-item" />
-                 </div>
-               </td>
-             </tr>
+            @for (product of (cartService.cart$ | async)?.products; track product.id) {
+             <tr class="border-b border-gray-200">
+                <td class="py-3">{{product.title | slice:0:35}}...</td>
+                <td class="py-3">{{product.quantity}}</td>
+                <td class="custom-table-cell-price">{{ product.subTotal || product.price | currency}}</td>
+                <td>
+                  <div class="remove-container">
+                    <app-remove-product (onClickRemoveProduct)="onRemoveProduct(product.id)" class="custom-flex-item" />
+                  </div>
+                </td>
+              </tr>
+            }
            </tbody>
            <tfoot>
              <tr>
@@ -48,7 +49,7 @@
    
       @if((cartService.cart$ | async)?.productsCount === 0){
         <div class="custom-flex-col">
-          <h3 class="custom-empty-cart-heading">The shopping cart is empty</h3>
+          <h3  class="custom-empty-cart-heading">The shopping cart is empty</h3>
         </div>
       } 
       
