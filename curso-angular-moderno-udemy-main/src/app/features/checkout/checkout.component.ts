@@ -23,11 +23,12 @@ import { RemoveProductComponent } from '@shared/ui/remove/remove-product.compone
 })
 export default class CheckoutComponent {
   readonly cartService = inject(CartStateService);
+  cartStore = this.cartService.cartStore;
 
   private readonly _checkoutSvc = inject(CheckoutService);
 
   onProceedToPay(): void {
-    this._checkoutSvc.processPay(this.cartService.cart$);
+    this._checkoutSvc.processPay(this.cartStore);
   }
 
   clearAll(): void {

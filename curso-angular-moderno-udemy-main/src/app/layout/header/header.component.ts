@@ -12,7 +12,6 @@ import { CartStore } from 'src/app/store/cart-state/cart-state.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderComponent {
-  //@Input() cart!: CartStore | null;
   cart = input.required<CartStore | null >();
   showCart = false;
 }
