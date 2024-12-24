@@ -5,6 +5,7 @@ import { Product } from '@features/products/product.interface';
 import { ToastrService } from 'ngx-toastr';
 import { BehaviorSubject } from 'rxjs';
 import { CartCalculatorService } from 'src/app/store/cart-state/cart-calculator.service';
+import { CartStorageService } from './cart-storage.service';
 
 export interface CartStore {
   products: Product[];
@@ -21,6 +22,7 @@ export const initialCartState: CartStore = {
 @Injectable({ providedIn: 'root' })
 export class CartStateService {
 
+  private readonly _cartStorageService = inject(CartStorageService)
   private readonly _cartCalculatorService = inject(CartCalculatorService);
   private readonly _toastrService = inject(ToastrService);
 
