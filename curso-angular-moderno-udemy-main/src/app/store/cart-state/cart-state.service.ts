@@ -1,5 +1,5 @@
 import { computeMsgId } from '@angular/compiler';
-import { computed, inject, Injectable, signal } from '@angular/core';
+import { computed, effect, inject, Injectable, signal } from '@angular/core';
 import { toObservable } from '@angular/core/rxjs-interop';
 import { Product } from '@features/products/product.interface';
 import { ToastrService } from 'ngx-toastr';
@@ -40,6 +40,20 @@ export class CartStateService {
      productsCount : this.productsCount(),
      totalAmount : this.totalAmount()
   }));
+
+  constructor(){
+    const savedState = this._cartStorageService.loadState();
+    if (savedState) {
+      this._products.set(savedState.products);
+    }
+   
+    //cada vez que cambie el cart store 
+    effect(() => {
+        console.log("storage effect ");
+        this._cartStorageService.saveState(this.cartStore());
+    })
+  }
+
 
   
   addToCart(product: Product): void {

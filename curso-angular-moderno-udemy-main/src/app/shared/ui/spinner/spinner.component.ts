@@ -5,9 +5,9 @@ import { SpinnerService } from '@shared/services/spinner.service';
 @Component({
   selector: 'app-spinner',
   standalone: true,
-  imports: [ AsyncPipe],
+  imports: [],
   template: `
-    @if(isLoading$ | async){
+    @if(isLoading()) {
       <div class="flex-center">
         <div class="spinner"></div>
       </div>
@@ -17,5 +17,5 @@ import { SpinnerService } from '@shared/services/spinner.service';
   styleUrl: './spinner.component.scss',
 })
 export class SpinnerComponent {
-  isLoading$ = inject(SpinnerService).isLoading$;
+  isLoading = inject(SpinnerService).isLoading;
 }
