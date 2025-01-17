@@ -7,6 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class CategoryService {
   //readonly categories$ = new BehaviorSubject<string[]>([]);
+  //readonly categories$ = toObservable(this.categories);
   categories = signal<string[]>([]);
   private readonly _endPoint = `${environment.API_URL_FAKE_STORE}/products/categories`;
   private readonly _apiService = inject(APIService);
