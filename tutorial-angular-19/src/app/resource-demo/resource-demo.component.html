@@ -1,0 +1,30 @@
+<div class="container">
+  <!-- @if(isLoading()){
+    <p>Cargando...</p>
+  }
+
+  @if(error()){
+    <p>Ocurrio un error</p>
+  }
+
+  @if(!isLoading() && !error()){
+    <span>{{ value() | json }}</span>
+  } -->
+
+   @if(exchange.isLoading()){
+      <p>Cargando...</p>
+   }
+   @if(exchange.error()){
+      <p>Ocurrio un error</p>
+   }
+
+   @if(!exchange.isLoading() && !exchange.error()){
+      <span>{{ exchange.value() | json }}</span>
+   }
+
+   <button (click)="webSelected.set('charizard')">Charizard</button>
+   <button (click)="webSelected.set('charmeleon')">Charmeleon</button>
+   <button (click)="exchange.reload()">Recargar</button>
+
+   <button (click)="cancel()">Cancelar</button>
+</div>
