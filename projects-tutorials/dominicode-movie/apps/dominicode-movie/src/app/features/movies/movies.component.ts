@@ -5,7 +5,6 @@ import {
   HostListener,
   inject,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { MoviesService } from './movies.service';
 import { RouterLink } from '@angular/router';
 import { MovieCardComponent } from './movie-card/movie-card.component';
