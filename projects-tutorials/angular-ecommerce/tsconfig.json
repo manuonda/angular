@@ -4,6 +4,7 @@
   "compileOnSave": false,
   "compilerOptions": {
     "rootDir": ".",
+    "baseUrl": ".",
     "paths": {
       "@api/*": ["src/app/api/*"],
       "@features/*": ["src/app/features/*"],
