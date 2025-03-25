@@ -1,7 +1,8 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Product } from '@features/products/product.model';
 import { CardModule } from 'primeng/card';
 import { PrimaryButtonComponent } from "@features/../layout/header/primary-button/primary-button.component";
+import { CartService } from '../cart.service';
 
 
 @Component({
@@ -13,5 +14,6 @@ import { PrimaryButtonComponent } from "@features/../layout/header/primary-butto
 export class CardComponent {
 
    product = input<Product>();
+   cartService = inject(CartService)
 
 }
