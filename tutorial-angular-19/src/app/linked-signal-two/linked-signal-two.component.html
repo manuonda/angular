@@ -1,0 +1,19 @@
+
+
+<div>
+  @for(product of products();track product; let i = $index){
+    <div class="product"
+     [class.selected] = "selectedProduct() === product"
+     (click) ="selectProduct(i)"
+     >
+  <h2>{{product.name}}</h2>
+   <p>${{product.price}}</p>
+    </div>
+  }
+</div>
+
+<div class="info">
+  <p>Product seleccionado : {{ selectedProduct().name}}</p>
+</div>
+
+<button (click)="changeProducts()">Cambiar Frutas</button>
