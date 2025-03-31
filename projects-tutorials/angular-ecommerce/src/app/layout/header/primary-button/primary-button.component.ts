@@ -1,4 +1,5 @@
-import { Component , ChangeDetectionStrategy, input, output} from '@angular/core';
+import { Component , ChangeDetectionStrategy, input, output, inject} from '@angular/core';
+import { CartService } from '@features/products/cart.service';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
