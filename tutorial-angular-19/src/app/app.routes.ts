@@ -11,5 +11,8 @@ export const routes: Routes = [
   },{
     path:"linked-two",
     loadComponent:() => import('./linked-signal-two/linked-signal-two.component').then( m => m.LinkedSignalTwoComponent)
+  },{
+    path:"linked-three",
+    loadComponent:() => import('./linked-signal-three/linked-signal-three.component').then( m => m.LinkedSignalThreeComponent)
   }
 ];

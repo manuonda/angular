@@ -1,0 +1,19 @@
+<div>
+  @for(product of products();track product; let i = $index){
+    <div class="product"
+     (click)= "seltectedProduct.set(product)"
+     >
+  <h2>{{product.name}}</h2>
+   <p>${{product.price}}</p>
+    </div>
+  }
+</div>
+
+<div class="info">
+  <p>Product seleccionado : {{ seltectedProduct()?.name ?? "Ninguno"}}</p>
+  <p>Precio Unitario : {{ seltectedProduct()?.price ?? 0}}</p>
+  <p>Cantidad : {{quantity()}}</p>
+  <p>Precio Total : {{ total()}}</p>
+</div>
+
+<button (click)="quantityChanged(1)">Aumenta Producto </button>
