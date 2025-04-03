@@ -14,5 +14,11 @@ export const routes: Routes = [
   },{
     path:"linked-three",
     loadComponent:() => import('./linked-signal-three/linked-signal-three.component').then( m => m.LinkedSignalThreeComponent)
+  },{
+    path:"reactive-form",
+    loadComponent: () => import('./reactive-forms-validation/reactive-forms-validation.component').then(m => m.ReactiveFormsValidationComponent)
+  }, {
+    path:"rxresource",
+    loadComponent :() => import('./refresh-rxresource/refresh-rxresource.component').then(m => m.VehicleSelectionComponent)
   }
 ];
