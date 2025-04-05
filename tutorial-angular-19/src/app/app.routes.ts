@@ -29,5 +29,8 @@ export const routes: Routes = [
   },{
     path: "resource-two",
     loadComponent :() => import('./http-resource/http-resource.component').then( m => m.HttpResourceComponent)
+  },{
+    path:"httpresource-2",
+    loadComponent: () => import('./httpresource-advanced/httpresource-advanced.component').then( m => m.HttpresourceAdvancedComponent)
   }
 ];

@@ -5,3 +5,9 @@ Canales para estudiar :
 
  servicio con señales  - Deborah Kurata
  https://www.youtube.com/watch?v=xtxBMcEMcxU
+
+
+ httpResource:
+ ------------
+ https://www.youtube.com/watch?v=dJ8AtWqRGko
+ https://www.youtube.com/watch?v=GXzPlaF3-bE
