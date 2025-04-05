@@ -1,0 +1,11 @@
+<button (click)="reset()">Reset</button>
+<button (click)="getProducts()"></button>
+loading : {{productRs.isLoading()}}
+@for (product of productRs.value(); track product ;let index =$index) {
+
+  <div>
+    <span>{{ product.id}}</span>
+    <span>{{product.title}}</span>
+  </div>
+
+}

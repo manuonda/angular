@@ -20,5 +20,8 @@ export const routes: Routes = [
   }, {
     path:"rxresource",
     loadComponent :() => import('./refresh-rxresource/refresh-rxresource.component').then(m => m.VehicleSelectionComponent)
+  },{
+    path:"httpresource",
+    loadComponent: () => import('./httpresource/httpresource.component').then(m => m.HttpresourceComponent)
   }
 ];
