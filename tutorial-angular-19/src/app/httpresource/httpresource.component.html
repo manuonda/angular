@@ -1,11 +1,14 @@
 <button (click)="reset()">Reset</button>
-<button (click)="getProducts()"></button>
+<button (click)="getProducts()">Reload</button>
 loading : {{productRs.isLoading()}}
+
+ERROR {{productRs.error()}}
 @for (product of productRs.value(); track product ;let index =$index) {
 
   <div>
-    <span>{{ product.id}}</span>
-    <span>{{product.title}}</span>
+    <a routerLink="/products/{{ product.id }}">
+      {{ product.title }}
+  </a>
   </div>
 
 }

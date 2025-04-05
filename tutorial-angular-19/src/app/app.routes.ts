@@ -23,5 +23,8 @@ export const routes: Routes = [
   },{
     path:"httpresource",
     loadComponent: () => import('./httpresource/httpresource.component').then(m => m.HttpresourceComponent)
+  },{
+    path: 'products/:id',
+    loadComponent: () => import('./httpresource/detail/detail.component').then(m => m.DetailComponent)
   }
 ];
