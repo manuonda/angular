@@ -1,0 +1,45 @@
+<div class="navbar">
+  <div class="navbar__logo">
+    <h2>Angular Forms</h2>
+  </div>
+
+  <div class="navbar__link-container">
+    <a routerLink="template-driven-forms"  routreLinkActive="active" class="navbar__link">
+      Template Driven Form
+    </a>
+    <a routerLink="reactive-forms" routreLinkActive="active" class="navbar__link">
+      Reactive Form
+    </a>
+  </div>
+
+  @if(toggleNavbarMobile()){
+    <div class="navbar-mobile">
+      <div class="navbar-mobile__close-menu">
+
+        <button class="btn btn-tertiary"
+                (click)="toggleNavbarMobile.set(false)">
+              &#10006;
+         </button>
+      </div>
+      <div class="navbar-mobile__link-container">
+        <a routerLink="template-driven-forms" routreLinkActive="active">Template Driven form</a>
+        <a routerLink="reactive-forms" routreLinkActive="active">Reactive Form</a>
+      </div>
+    </div>
+  }
+</div>
+
+  @if(toggleNavbarMobile()){
+    <div class="navbar-mobile" @fadeIn>
+       <div class="navbar-mobile__close-menu">
+         <button class="btn btn-tertiary"
+                >✕
+         </button>
+       </div>
+       <div class="navbar-mobile__link-container">
+         <a routerLink="template-driven-forms" class="navbar-mobile__link">Template Driven Form</a>
+         <a routerLink="reactive-forms" class="navbar-mobile__link">Reactive Form</a>
+        </div>
+    </div>
+  }
+
