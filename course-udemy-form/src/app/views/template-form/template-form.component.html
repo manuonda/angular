@@ -1,1 +1,104 @@
-<p>template-form works!</p>
+<pre> {{ applicationForm | json }}</pre>
+
+<form #form="ngForm" (ngSubmit)="handleSbumit(form)">
+  <h1>Job Application Form</h1>
+
+  <div class="form-group">
+    <div class="form-group-box" ngModelGroup="name">
+      <div class="form-row">
+        <label for="first-name">First</label>
+        <input
+          type="text"
+          name="first"
+          [(ngModel)]="applicationForm.name.first"
+          [ngModelOptions]="{ name: 'frist', updateOn: 'blur' }"
+          placeholder="Enter first name"
+        />
+      </div>
+      <div class="form-row">
+        <label for="last-name">Last</label>
+        <input
+          type="text"
+          name="last"
+          [(ngModel)]="applicationForm.name.last"
+          placeholder="Enter last name"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <label for="email">Email</label>
+    <input type="email" name="email" [(ngModel)]="applicationForm.email" placeholder="Enter your email" />
+  </div>
+
+  <h4>What is your current employement status?</h4>
+  <div class="row-form">
+    <div class="form-radio-control">
+      <label for="">Employee</label>
+      <input
+        type="radio"
+        value="employee"
+        name="employmentStatus"
+        [(ngModel)]="applicationForm.employmentStatus"
+      />
+    </div>
+    <div class="form-radio-control">
+      <label for="">Unemployee</label>
+      <input
+        type="radio"
+        value="unemployee"
+        name="employmentStatus"
+        [(ngModel)]="applicationForm.employmentStatus"
+      />
+    </div>
+    <div class="form-radio-control">
+      <label for="">Self-Employee</label>
+      <input
+        type="radio"
+        name="employmentStatus"
+        value="self-employee"
+        [(ngModel)]="applicationForm.employmentStatus"
+      />
+    </div>
+    <div class="form-radio-control">
+      <label for="">Student</label>
+      <input
+        type="radio"
+        name="employmentStatus"
+        value="student"
+        [(ngModel)]="applicationForm.employmentStatus"
+      />
+    </div>
+  </div>
+
+  <div class="row-form">
+    <label for="">what position are you appling for?</label>
+    <select
+      id="open-positions"
+      name="positionSelected"
+      [(ngModel)]="applicationForm.positionSelected"
+    >
+      <option value="">Select an option</option>
+      <option value="angular">Angular Developer</option>
+      <option value="php">Php Developer</option>
+      <option value="java">Java Developer</option>
+      <option value="python">Python Developer</option>
+    </select>
+  </div>
+
+  <div class="row-form">
+    <label for="resume">Please provide resume link</label>
+    <input
+      type="text"
+      id="resume-link"
+      placeholder="https://www.example.com"
+      name="resume-link"
+      [(ngModel)]="applicationForm.resumeLink"
+    />
+  </div>
+
+  <div class="row-form">
+    <button class="btn btn-secondary">Reset</button>
+    <button class="btn btn-primary">Submit</button>
+  </div>
+</form>

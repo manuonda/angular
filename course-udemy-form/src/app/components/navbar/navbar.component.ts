@@ -1,7 +1,8 @@
-import { RouterLink } from '@angular/router';
-import { Component, signal, HostListener } from '@angular/core';
+import { RouterLink ,Router} from '@angular/router';
+import { Component, signal, HostListener , OnInit, OnDestroy, inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { trigger, state, style, transition, animate } from '@angular/animations';
+
 
 @Component({
   selector: 'nav[cs-navbar]',
@@ -22,10 +23,16 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
       ])
   ]
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit , OnDestroy{
   toggleNavbarMobile = signal<boolean>(false);
-
+  readonly  #router = inject(Router);
   constructor() {
+  }
+  ngOnInit(): void {
+     const routerEvents$= this
+  }
+  ngOnDestroy(): void {
+    throw new Error('Method not implemented.');
   }
 
 
