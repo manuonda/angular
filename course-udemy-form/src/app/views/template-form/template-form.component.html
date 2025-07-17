@@ -13,7 +13,23 @@
           [(ngModel)]="applicationForm.name.first"
           [ngModelOptions]="{ name: 'frist', updateOn: 'blur' }"
           placeholder="Enter first name"
+          required
+          minlength="2"
+          #firstNameControl="ngModel"
         />
+        @if(firstNameControl.touched && firstNameControl.hasError('required')){
+          <div class="error-required">
+            This field is required
+          </div>
+        }
+          @if(firstNameControl.touched && firstNameControl.hasError('minlength')){
+          @let minlengthError = firstNameControl.getError('minlength');
+
+          <div class="error-required">
+            The required length for this field is 
+            <strong>{{minlengthError.requiredLength}}</strong>
+          </div>
+        }
       </div>
       <div class="form-row">
         <label for="last-name">Last</label>
