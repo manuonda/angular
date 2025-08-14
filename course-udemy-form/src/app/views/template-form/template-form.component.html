@@ -1,6 +1,9 @@
 <pre> {{ applicationForm | json }}</pre>
 
-<form #form="ngForm" (ngSubmit)="handleSubmit()">
+<form
+#form="ngForm"
+(reset)="handleReset($event)"
+(ngSubmit)="handleSubmit()">
   <h1>Job Application Form</h1>
 
   <div class="form-group">
@@ -126,6 +129,12 @@
 
   </div>
    </div>
+
+   @if(emailControl.dirty && emailControl.hasError("required")){
+      <div class="error-required">
+        This.field is required
+      </div>
+   }
 
    @if(confirmEmailControl.touched && confirmEmailControl.hasError("required")){
     <div class="error-required">

@@ -18,9 +18,14 @@ export class ConfirmEmailValidator implements Validator {
   validate(formGroup: AbstractControl): ValidationErrors | null {
     const emailControl = formGroup.get('email');
     const confirmEmailControl = formGroup.get('confirm-email');
-    const error: ValidationErrors | null =  emailControl?.value === confirmEmailControl?.value ?
-    null :
-       { noMatch: true };
+    let error: ValidationErrors | null;
+    if (emailControl?.value === ""){
+       error = {emailsRequired: true}
+    } else {
+       error = emailControl?.value === confirmEmailControl?.value ?
+         null :
+         { noMatch: true };
+    }
     confirmEmailControl?.setErrors(error);
 
     return error;

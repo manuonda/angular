@@ -2,8 +2,7 @@ import { CheckEmailAsyncValidator } from './directives/check-email.directive';
 import { ConfirmEmailValidator } from './directives/confirm-email.directive';
 import { ApplicationForm, VerifyAccount } from './interfaces/application-form.directive';
 import { FormGroup, FormsModule, NgForm } from '@angular/forms';
-import { TemplateFormDirective } from './directives/template-form.directive';
-import { Component, viewChild } from '@angular/core';
+import { Component, viewChild , AfterViewInit} from '@angular/core';
 import { JsonPipe } from '@angular/common';
 import { BannedWordDirective } from './directives/banner-word.directive';
 
@@ -13,34 +12,54 @@ import { BannedWordDirective } from './directives/banner-word.directive';
   templateUrl: './template-form.component.html',
   styleUrl: './template-form.component.scss'
 })
-export class TemplateFormComponent {
+export class TemplateFormComponent implements AfterViewInit{
+
 
   verifyAccountWith: VerifyAccount = 'email';
 
-  form = viewChild(NgForm);
+  ngForm = viewChild(NgForm);
 
   applicationForm:ApplicationForm = {
     name: {
-      first:'',
-      last:''
+      first:'David',
+      last:'Garcia'
     },
     email:{
-      email:'',
-      confirmationEmail:''
+      email:'manuonda@gmail.com',
+      confirmationEmail:'manuonda@gmail.com'
     },
-    employmentStatus: '',
-    positionSelected: '',
-    resumeLink: '',
+    employmentStatus: 'employee',
+    positionSelected: 'Angular Developer',
+    resumeLink: 'www.manuonda.com',
     phoneNumber:''
 
   }
-  // handleSbumit(form: NgForm){
-  //   console.log("formulario : ",form);
-  // }
+
+  initialFormValue!: {[key:string]:string}
+
+  ngAfterViewInit(): void {
+    // setTimeout(() => {
+    //   console.log(this.ngForm()?.value);
+    // }, 0);
+
+    // queueMicrotask(() => {
+    //    console.log(this.ngForm()?.value)
+    // })
+
+    Promise.resolve().then(() => {
+      console.log(this.ngForm()?.value);
+      this.initialFormValue = this.ngForm()?.value;
+      console.log(this.initialFormValue);
+    })
+  }
+
 
   handleSubmit(){
-    console.log(this.form()?.form);
-    this.markAllAsDirty(this.form()!.form);
+    console.log(this.ngForm());
+    this.markAllAsDirty(this.ngForm()!.form);
+    if(this.ngForm()!.invalid) return;
+
+    // this.ngForm()!.resetForm();
   }
 
   handlePhoneNumber(){
@@ -49,5 +68,24 @@ export class TemplateFormComponent {
 
   markAllAsDirty(form: FormGroup){
     console.log(form);
+    Object.values(form.controls).forEach(control => {
+      if ( control instanceof FormGroup){
+        this.markAllAsDirty(control);
+      }
+      control.markAsDirty();
+
+    });
+  }
+
+  handleReset(event:Event){
+    // this.ngForm()!.resetForm({
+    //   name:{
+    //     first:'Jhon',
+    //   },
+    //   'open-positions:': 'Angular Developer'
+    // });
+    event.preventDefault();
+    this.ngForm()!.resetForm(this.initialFormValue);
+
   }
 }
